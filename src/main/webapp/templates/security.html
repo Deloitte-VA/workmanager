@@ -1,0 +1,35 @@
+<div name="login">
+    <div class="alert alert-danger" role="alert" ng-show="errors">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ errorMessage }}
+    </div>
+    <form role="form" ng-show="!forgotPasswordForm" ng-submit="login()">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="form-group">
+            <label for="login-email">Email:</label>
+            <input type="text" class="form-control" id="login-email" name="login-email" placeholder="john.smith@gmail.com" ng-model="credentials.email"/>
+        </div>
+        <div class="form-group">
+            <label for="login-password">Password:</label>
+            <input type="password" class="form-control" id="login-password" name="login-password" placeholder="login-password" ng-model="credentials.password"/>
+        </div>
+        <div class="checkbox">
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember Username
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" ng-click="toggleForgotPasswordForm()" class="btn btn-info">Forgot Password?</button>
+    </form>
+
+    <form role="form" ng-show="forgotPasswordForm" ng-submit="forgotPassword()">
+        <h2 class="form-signin-heading">What is the email associated with this account?</h2>
+        <div class="form-group">
+            <!--<label for="forgot-email">What is the email associated with this account?</label>-->
+            <input type="text" class="form-control" id="forgot-email" name="forgot-email" placeholder="john.smith@gmail.com" ng-model="credentials.forgottenEmail"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" ng-click="cancelAll()" class="btn btn-danger">Cancel</button>
+    </form>
+</div>

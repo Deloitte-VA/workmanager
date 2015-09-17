@@ -1,0 +1,120 @@
+databaseChangeLog:
+    - changeSet:
+        id: 1
+        author: jlgrock
+        changes:
+            - createTable:
+                tableName: user_accounts
+                columns:
+                    - column:
+                        name: id
+                        type: int
+                        autoIncrement: true
+                        constraints:
+                          primaryKey: true
+                          primaryKeyName: user_accounts_pkey
+                          nullable: false
+                    - column:
+                        name: first_name
+                        type: varchar(255)
+                        constraints:
+                          nullable: false
+                    - column:
+                        name: last_name
+                        type: varchar(255)
+                        constraints:
+                          nullable: false
+                    - column:
+                        name: email
+                        type: varchar(255)
+                        constraints:
+                          nullable: false
+                          unique: true
+                          uniqueConstraintName: user_accounts_email_uniq
+                    - column:
+                        name: role
+                        type: varchar(20)
+                        constraints:
+                          nullable: false
+                    - column:
+                        name: password
+                        type: varchar(255)
+                    - column:
+                        name: verified
+                        type: boolean
+                        constraints:
+                          nullable: false
+            - createTable:
+                tableName: password_reset_tokens
+                columns:
+                      - column:
+                          name: id
+                          type: int
+                          constraints:
+                              primaryKey: true
+                              nullable: false
+                              primaryKeyName: password_reset_tokens_pkey
+                      - column:
+                          name: token
+                          type: varchar(255)
+                          constraints:
+                              nullable: false
+                      - column:
+                          name: user_account_id
+                          type: int
+                          constraints:
+                              nullable: false
+                              references: user_accounts(id)
+                              foreignKeyName: password_reset_tokens_user_accounts_fk
+            - createTable:
+                tableName: verification_tokens
+                columns:
+                      - column:
+                          name: id
+                          type: int
+                          constraints:
+                              primaryKey: true
+                              nullable: false
+                              primaryKeyName: verification_tokens_pkey
+                      - column:
+                          name: token
+                          type: varchar(255)
+                          constraints:
+                              nullable: false
+                      - column:
+                          name: user_account_id
+                          type: int
+                          constraints:
+                              nullable: false
+                              references: user_accounts(id)
+                              foreignKeyName: verification_tokens_user_accounts_fk
+            - insert:
+                tableName: user_accounts
+                columns:
+                    - column:
+                        name: id
+                        value: 0
+                    - column:
+                        name: first_name
+                        value: Admin
+                    - column:
+                        name: last_name
+                        value: User
+                    - column:
+                        name: email
+                        value: admin@localhost.com
+                    - column:
+                        name: role
+                        value: ADMIN
+                    - column:
+                        name: password
+                        value:
+                    - column:
+                        name: verified
+                        value: false
+            - createSequence:
+                  incrementBy: 1
+                  maxValue: 9223372036854775807
+                  minValue: 1
+                  sequenceName: hibernate_sequence
+                  startValue: 1

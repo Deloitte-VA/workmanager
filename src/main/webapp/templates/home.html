@@ -1,0 +1,15 @@
+<div ng-show="authenticated">
+    <p>The ID is {{greeting.id}}</p>
+
+    <!-- The core content of the site-->
+    <h2>Your current work!</h2>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+    </ul>
+</div>
+<div  ng-show="!authenticated">
+    <login></login>
+</div>
