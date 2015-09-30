@@ -1,5 +1,8 @@
 package com.github.jlgrock.informatix.workmanager.domain.useraccount
+
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 /**
  *
@@ -13,6 +16,8 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, Integ
 
     List<UserAccount> findUserAccountsByEmailAndIdNot(String email, int id)
 
-    List<UserAccount> findUserAccountsByRole(UserRole role)
+    // Using JPQL query to find users by role
+    @Query("SELECT u FROM UserRole r INNER JOIN r.userRolePK.userAccount u WHERE r.userRolePK.role = :roleParam")
+    List<UserAccount> findUserAccountsByRole(@Param("roleParam") Role role)
 
 }

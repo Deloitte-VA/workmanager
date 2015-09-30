@@ -1,34 +1,75 @@
-var app = angular.module('hello', [ 'ngRoute', 'ngAnimate', 'ngCookies', 'ui.bootstrap' ]);
+(function() {
+    /**
+     * Config
+     */
+    var moduleName = 'com.github.jlgrock.informatix.workmanager';
 
-app.config(function($routeProvider, $httpProvider) {
+    /**
+     * Module
+     */
+    var module;
+    try {
+        module = angular.module(moduleName);
+    } catch (err) {
+        // named module does not exist, so create one
+        module = angular.module(moduleName, ['ngAnimate', 'ngCookies', 'ngRoute', 'ui.bootstrap', 'file-model']);
+    }
 
-    $routeProvider.when('/', {
-        templateUrl : 'templates/home.html',
-        controller : 'home',
-    }).when('/accounts', {
-        templateUrl : 'templates/accounts.html',
-        controller : 'accounts',
-    }).when('/security', {
-        templateUrl : 'templates/security.html'
-    }).otherwise('/security');
+    module.config(function ($routeProvider, $httpProvider) {
 
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        $routeProvider.when("/", {
+            redirectTo: "/assignments"
+        }).when('/assignments', {
+            templateUrl: 'templates/assignments.html',
+            controller: 'assignmentsCtrl'
+        }).when('/hours/:assignmentId', {
+            templateUrl: 'templates/hours.html',
+            controller: 'hoursCtrl'
+        }).when('/reporting', {
+            templateUrl: 'templates/reporting.html',
+            controller: 'reportingCtrl'
+        }).when('/batch', {
+            templateUrl: 'templates/batch-create.html',
+            controller: 'batchCreateCtrl'
+        }).when('/assignment/:batchId', {
+            templateUrl: 'templates/assignment-create.html',
+            controller: 'assignmentCreateCtrl'
+        }).when('/assignment/complete/:assignmentId', {
+            templateUrl: 'templates/assignment-complete.html',
+            controller: 'assignmentCompleteCtrl'
+        }).when('/accounts', {
+            templateUrl: 'templates/accounts.html',
+            controller: 'accountsCtrl'
+        }).when('/account', {
+            templateUrl: 'templates/account.html',
+            controller: 'accountCreateCtrl'
+        }).when('/account/:id', {
+            templateUrl: 'templates/account.html',
+            controller: 'accountEditCtrl'
+        }).when('/login', {
+            templateUrl: 'templates/login.html',
+            controller: 'loginCtrl'
+        }).otherwise("/login");
 
-    $httpProvider.defaults.withCredentials = true;
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-});
+        $httpProvider.defaults.withCredentials = true;
 
-//app.run(
-//    function($rootScope, $location) {
-//
-//        // register listener to watch route changes
-//        $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-//            if ( $rootScope.authenticated === undefined) {
-//                authenticate();
-//            }
-//            if ( $rootScope.authenticated == false ) {
-//                $location.path( "/login" );
-//            }
-//        })
-//    }
-//);
+    });
+
+    // if you end up on a page that isn't the login page (and you aren't logged in), redirect to the login page
+    module.run(
+        function($rootScope, security, $location) {
+
+            // register listener to watch route changes
+            $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+                if ( !angular.isDefined($rootScope.authenticated) || $rootScope.authenticated === null) {
+                    security.authenticate();
+                }
+                if ( $rootScope.authenticated === false ) {
+                    $location.path( "/login" );
+                }
+            })
+        }
+    );
+})();

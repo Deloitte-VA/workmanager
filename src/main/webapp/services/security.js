@@ -1,30 +1,45 @@
-app.factory('securityService', function($rootScope, $http) {
+(function() {
+    /**
+     * Config
+     */
+    var moduleName = 'com.github.jlgrock.informatix.workmanager';
+    module = angular.module(moduleName);
 
-    return {
-        authenticate : function(credentials, callback) {
+    module.factory('security', function ($rootScope, $http, $location) {
 
-            var postheaders = credentials ? {
-                authorization : "Basic "
-                + btoa(credentials.email + ":"
-                    + credentials.password)
-            } : {};
+        return {
+            authenticate: function (credentials, callback) {
 
-            $http.get('principal', {
-                headers : postheaders
-            }).then(function(response) {
-                if (response.data['name']) {
-                    $rootScope.authenticated = true;
-                } else {
-                    $rootScope.authenticated = true; //TODO fix
-                    //$rootScope.authenticated = false;
-                }
-                callback && callback($rootScope.authenticated);
-            }, function() {
-                $rootScope.authenticated = false;
-                callback && callback(false);
-            });
+                var postheaders = credentials ? {
+                    authorization: "Basic "
+                    + btoa(credentials.email + ":"
+                        + credentials.password)
+                } : {};
 
-        }
-    };
+                var headers = {
+                    headers: postheaders
+                };
 
-});
+                $http.get('principal', headers).then(
+                    function (response) {
+                        if (response.data['name']) {
+                            $rootScope.authenticated = true;
+                        } else {
+                            $rootScope.authenticated = false;
+                        }
+                        callback && callback($rootScope.authenticated);
+                    }, function (response) {
+                        $rootScope.authenticated = false;
+                        if (angular.isDefined(callback)) {
+                            callback && callback(false);
+                        } else {
+                            $location.path("/security");
+                        }
+                    }
+                );
+
+            }
+        };
+
+    });
+})();

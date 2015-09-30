@@ -32,10 +32,6 @@ class UserAccount {
     @Email
     String email
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    UserRole role
-
     String password
 
     boolean verified
@@ -47,6 +43,5 @@ class UserAccount {
         fname = userAccountData.fname
         lname = userAccountData.lname
         email = userAccountData.email
-        role = userAccountData.role
     }
 }

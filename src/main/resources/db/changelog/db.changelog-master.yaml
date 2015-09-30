@@ -32,18 +32,32 @@ databaseChangeLog:
                           unique: true
                           uniqueConstraintName: user_accounts_email_uniq
                     - column:
-                        name: role
-                        type: varchar(20)
-                        constraints:
-                          nullable: false
-                    - column:
                         name: password
-                        type: varchar(255)
+                        type: varchar(60)
                     - column:
                         name: verified
                         type: boolean
                         constraints:
                           nullable: false
+            - createTable:
+                tableName: user_roles
+                columns:
+                    - column:
+                        name: user_account_id
+                        type: int
+                        constraints:
+                            nullable: false
+                            references: user_accounts(id)
+                            foreignKeyName: user_roles_user_accounts_fk
+                    - column:
+                        name: role
+                        type: varchar(20)
+                        constraints:
+                            nullable: false
+            - addPrimaryKey:
+                columnNames: user_account_id, role
+                constraintName: user_roles_pk
+                tableName: user_roles
             - createTable:
                 tableName: password_reset_tokens
                 columns:
@@ -88,6 +102,120 @@ databaseChangeLog:
                               nullable: false
                               references: user_accounts(id)
                               foreignKeyName: verification_tokens_user_accounts_fk
+            - createTable:
+                tableName: attachments
+                columns:
+                    - column:
+                        name: id
+                        type: int
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                            primaryKeyName: attachments_pkey
+                    - column:
+                        name: data
+                        type: BLOB
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: filename
+                        type: varchar(255)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: upload_date
+                        type: datetime
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: num_bytes
+                        type: int
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: media_type
+                        type: varchar(255)
+                        constraints:
+                            nullable: false
+            - createTable:
+                tableName: batches
+                columns:
+                    - column:
+                        name: id
+                        type: int
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                            primaryKeyName: batches_pkey
+                    - column:
+                        name: name
+                        type: varchar(255)
+                    - column:
+                        name: num_records
+                        type: int
+                    - column:
+                        name: original_attachment_id
+                        type: int
+                        constraints:
+                            nullable: false
+                            references: attachments(id)
+                            foreignKeyName: batches_attachment_fk
+                    - column:
+                        name: num_unvalidated_records
+                        type: int
+                    - column:
+                        name: post_validation_attachment_id
+                        type: int
+                        constraints:
+                            nullable: false
+                            references: attachments(id)
+                            foreignKeyName: batches_attachment_postvalidation_fk
+            - createTable:
+                tableName: assignments
+                columns:
+                    - column:
+                        name: id
+                        type: int
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                            primaryKeyName: assignments_pkey
+                    - column:
+                        name: billable_hours
+                        type: double
+                    - column:
+                        name: num_records
+                        type: int
+                    - column:
+                        name: batch_id
+                        type: int
+                        constraints:
+                            nullable: false
+                            references: batches(id)
+                            foreignKeyName: assignments_batch_fk
+                    - column:
+                        name: assignment_attachment_id
+                        type: int
+                        constraints:
+                            references: attachments(id)
+                            foreignKeyName: assignments_assignment_fk
+                    - column:
+                        name: completed_attachment_id
+                        type: int
+                        constraints:
+                            references: attachments(id)
+                            foreignKeyName: attachments_completed_assignment_fk
+                    - column:
+                        name: user_account_id
+                        type: int
+                        constraints:
+                            references: user_accounts(id)
+                            foreignKeyName: assignments_user_accounts_fk
+                    - column:
+                        name: is_auto_generated
+                        type: boolean
+                        constraints:
+                            nullable: false
             - insert:
                 tableName: user_accounts
                 columns:
@@ -104,14 +232,29 @@ databaseChangeLog:
                         name: email
                         value: admin@localhost.com
                     - column:
-                        name: role
-                        value: ADMIN
-                    - column:
                         name: password
-                        value:
+                        value: $2a$10$1NG0sW7u1erub7gAFR1oGOGsDU4sIwZUv.j8qO/8mlY4DVc1/3hkG # "mypass"
                     - column:
                         name: verified
                         value: false
+            - insert:
+                tableName: user_roles
+                columns:
+                    - column:
+                        name: user_account_id
+                        value: 0
+                    - column:
+                        name: role
+                        value: ADMIN
+            - insert:
+                tableName: user_roles
+                columns:
+                    - column:
+                        name: user_account_id
+                        value: 0
+                    - column:
+                        name: role
+                        value: USER
             - createSequence:
                   incrementBy: 1
                   maxValue: 9223372036854775807

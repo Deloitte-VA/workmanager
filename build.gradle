@@ -62,13 +62,12 @@ dependencies {
             "org.codehaus.groovy:groovy-all:2.3.6", // Groovy
             "org.springframework.boot:spring-boot-starter-web", // Webapp
             "org.springframework.boot:spring-boot-starter-data-jpa", // for Data
-            //"org.springframework.boot:spring-boot-starter-security", // for creating user authentication
+            "org.springframework.boot:spring-boot-starter-security", // for creating user authentication
             "org.liquibase:liquibase-core:3.4.1", // For stateful database migrations
 
             "org.apache.poi:poi:3.13-beta1", // Apache POI for reading/writing excel documents
             'org.hibernate:hibernate-validator:5.2.0.Beta1', // add JSR-303 annotations
             'org.slf4j:slf4j-api:1.7.12', // Logging
-            //'javax.el:javax.el-api:3.0.0', //TODO causing an issue if I try to run in IntelliJ
 
             // UI stuff
             "org.webjars:jquery:2.1.1", // for DOM manipulation and use in angularJs for server communication
@@ -85,7 +84,7 @@ dependencies {
     )
 
     providedRuntime(
-            "org.springframework.boot:spring-boot-starter-tomcat",
+            //"org.springframework.boot:spring-boot-starter-tomcat",
 
     )
 
@@ -229,6 +228,6 @@ war {
 
 // Lets you remote debug the Spring Boot application.  Useful if you are having issues running it in your IDE
 // to use, just uncomment this out
-//task bootRun {
+//bootRun {
 //    jvmArgs = ['-Xdebug', '-Xrunjdwp:server=y,transport=dt_socket,address=4000,suspend=y']
 //}

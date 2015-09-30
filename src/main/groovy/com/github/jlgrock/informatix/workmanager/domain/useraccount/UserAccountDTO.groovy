@@ -26,7 +26,7 @@ class UserAccountDTO {
     String email
 
     @NotNull
-    UserRole role
+    Role role
 
     UserAccountDTO() {}
 
@@ -35,6 +35,5 @@ class UserAccountDTO {
         fname = userAccount.fname
         lname = userAccount.lname
         email = userAccount.email
-        role = userAccount.role
     }
 }

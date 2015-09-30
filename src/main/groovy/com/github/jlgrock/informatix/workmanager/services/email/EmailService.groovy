@@ -1,7 +1,6 @@
 package com.github.jlgrock.informatix.workmanager.services.email
 
-import com.github.jlgrock.informatix.workmanager.domain.SimpleMailMessage
-import com.github.jlgrock.informatix.workmanager.domain.UserAccount
+import com.github.jlgrock.informatix.workmanager.domain.useraccount.UserAccount
 
 /**
  *

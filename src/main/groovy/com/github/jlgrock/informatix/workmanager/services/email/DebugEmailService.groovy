@@ -1,5 +1,5 @@
 package com.github.jlgrock.informatix.workmanager.services.email
-import com.github.jlgrock.informatix.workmanager.domain.SimpleMailMessage
+
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service

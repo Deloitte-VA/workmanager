@@ -1,95 +1,79 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Hello AngularJS</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <!-- Bootstrap Theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
-    <style type="text/css">
-        [ng\:cloak], [ng-cloak], .ng-cloak {
-            display: none !important;
-        }
-
-        .slide {
-            /*position: absolute;*/
-            /*bottom: 30px;*/
-            /*z-index: 5;*/
-            /*transition: 1s ease bottom !important;*/
-            /*display: block !important;*/
-        }
-
-        .slide.ng-hide {
-            /*bottom: 0;*/
-        }
-
-        .form-control.ng-valid {
-            color: #3c763d;
-            background-color: #DFF0D7;
-            border-color: #d6e9c6;
-        }
-
-        .form-control.ng-invalid {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-
-        .form-control.ng-invalid-email {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-
-        .form-control.disabled {
-            color: #000000;
-            background-color: #DDDDDD;
-            border-color: #BBBBBB;
-        }
-    </style>
+    <link rel="stylesheet" href="/main.css">
 </head>
 
-<body ng-app="hello" ng-cloak class="ng-cloak">
-<div ng-controller="security" class="container">
-    <navbar></navbar>
-    <div ng-view class="container-fluid"></div>
-</div>
+<body ng-app="com.github.jlgrock.informatix.workmanager" ng-cloak class="ng-cloak">
+    <div class="container-fluid">
+        <div class="row">
+            <navbar></navbar>
+        </div>
+    </div>
 
-<!-- JQuery CDN - make sure this is before angular so that angular uses this version of jquery -->
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <div id="main" ng-view></div>
 
-<!-- Bootstrap CDN -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--
+        JQuery CDN - make sure this is before angular so that angular uses this version of jquery
+        Note that you should avoid using JQuery with AngularJS for most things
+    -->
+    <script src="//code.jquery.com/jquery-2.1.4.js"></script>
 
-<!-- AngularJS CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+    <!-- Bootstrap CDN -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap.min.js"></script>
+    <!-- AngularJS CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-animate.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-cookies.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-cookies.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.js"></script>
+
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>-->
 
 
-<!-- Application and routing -->
-<script src="app.js"></script>
 
-<!-- Services -->
-<script src="services/security.js"></script>
-<script src="services/response.js"></script>
+    <!-- Application and routing -->
+    <script src="app.js"></script>
 
-<!-- Controllers -->
-<script src="controllers/security.js"></script>
-<script src="controllers/home.js"></script>
-<script src="controllers/accounts.js"></script>
+    <!-- Services -->
+    <script src="services/security.js"></script>
+    <script src="services/processResponse.js"></script>
+    <script src="services/fileUtils.js"></script>
+    <script src="services/stateKeeper.js"></script>
 
-<!-- Directives -->
-<script src="directives/navbar.js"></script>
+    <!-- Controllers -->
+    <script src="controllers/navbar.js"></script>
+    <script src="controllers/login.js"></script>
+    <script src="controllers/alertBar.js"></script>
+    <script src="controllers/assignments.js"></script>
+    <script src="controllers/assignment-create.js"></script>
+    <script src="controllers/assignment-complete.js"></script>
+    <script src="controllers/accounts.js"></script>
+    <script src="controllers/account-create.js"></script>
+    <script src="controllers/account-edit.js"></script>
+    <script src="controllers/batch-create.js"></script>
+    <script src="controllers/reporting.js"></script>
+    <script src="controllers/hours.js"></script>
+
+    <!-- Directives -->
+    <script src="directives/navbar.js"></script>
+    <script src="directives/dirPagination.js"></script>
+    <script src="directives/fileModel.js"></script>
+    <script src="directives/alertBar.js"></script>
 
 </body>
 </html>

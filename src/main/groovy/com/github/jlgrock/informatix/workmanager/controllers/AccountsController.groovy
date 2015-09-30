@@ -1,14 +1,16 @@
 package com.github.jlgrock.informatix.workmanager.controllers
-import com.github.jlgrock.informatix.workmanager.domain.UserAccount
-import com.github.jlgrock.informatix.workmanager.domain.UserAccountDTO
+
+import com.github.jlgrock.informatix.workmanager.domain.useraccount.UserAccount
+import com.github.jlgrock.informatix.workmanager.domain.useraccount.UserAccountDTO
 import com.github.jlgrock.informatix.workmanager.exceptions.UserException
-import com.github.jlgrock.informatix.workmanager.services.accounts.AccountsServiceFactory
+import com.github.jlgrock.informatix.workmanager.services.AccountsService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 import javax.validation.Valid
+
 /**
  *
  */
@@ -17,64 +19,64 @@ import javax.validation.Valid
 class AccountsController extends AbstractSpringController {
 
     @Autowired
-    AccountsServiceFactory accountsServiceFactory
+    AccountsService accountsService
 
-    private static Logger LOGGER = LoggerFactory.getLogger(AccountsController.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(AccountsController.class)
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<UserAccount> get() {
-        accountsServiceFactory.getAccountsService().getAll()
+    Collection<UserAccount> get() {
+        accountsService.getAll()
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{id}")
-    public UserAccount get(@PathVariable("id") int id) {
+    UserAccount get(@PathVariable int id) {
         if (id == null) {
             throw new UserException("id is null. Cannot continue with edit")
         }
-        accountsServiceFactory.getAccountsService().get(id)
+        accountsService.get(id)
     }
 
     @RequestMapping(method = RequestMethod.POST, value="/{id}")
-    public UserAccount post(
-            @PathVariable("id")int id,
+    UserAccount post(
+            @PathVariable int id,
             @RequestBody @Valid UserAccountDTO userAccountData) {
 
         if (id == null) {
             throw new UserException("id is null. Cannot continue with edit")
         }
 
-        accountsServiceFactory.getAccountsService().update(id, userAccountData)
+        accountsService.update(id, userAccountData)
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public UserAccount put(
+    UserAccount put(
             @RequestBody @Valid UserAccountDTO userAccountData) {
         LOGGER.debug("userAccountData: ${userAccountData}")
         if (userAccountData == null) {
             throw new UserException("userAccountData is null. Cannot continue with add")
         }
-        accountsServiceFactory.getAccountsService().add(userAccountData)
+        accountsService.add(userAccountData)
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value="/{id}")
-    public UserAccount delete(@PathVariable("id") int id) {
+    UserAccount delete(@PathVariable("id") int id) {
         if (id == null) {
             throw new UserException("id is null. Cannot continue with delete")
         }
-        accountsServiceFactory.getAccountsService().delete(id)
+        accountsService.delete(id)
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/reset")
-    public UserAccount resetPassword(@RequestParam("email") String email) {
+    UserAccount resetPassword(@RequestParam String email) {
         if (email == null) {
             throw new UserException("id is null. Cannot continue with password reset")
         }
 
-        accountsServiceFactory.getAccountsService().resetPassword(email)
+        accountsService.resetPassword(email)
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{id}/validate")
-    public UserAccount validateUser(@PathVariable("id")int id, @RequestParam token) {
+    UserAccount validateUser(@PathVariable int id, @RequestParam token) {
         if (id == null) {
             throw new UserException("id is null. Cannot continue with edit")
         }
@@ -82,7 +84,7 @@ class AccountsController extends AbstractSpringController {
             throw new UserException("id is null. Cannot continue with edit")
         }
 
-        accountsServiceFactory.getAccountsService().askForVerification(id)
+        accountsService.askForVerification(id)
     }
 
 }

@@ -1,6 +1,6 @@
 package com.github.jlgrock.informatix.workmanager.controllers
 
-import com.github.jlgrock.informatix.workmanager.domain.ResetPasswordDTO
+import com.github.jlgrock.informatix.workmanager.domain.tokens.ResetPasswordDTO
 
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
