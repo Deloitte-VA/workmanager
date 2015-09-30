@@ -1,4 +1,4 @@
-package com.github.jlgrock.informatix.workmanager.domain
+package com.github.jlgrock.informatix.workmanager.domain.useraccount
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.hibernate.validator.constraints.Email
@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull
 class UserAccount {
 
     @Id
+    @NotNull
     @GeneratedValue
     Integer id
 
@@ -42,11 +43,7 @@ class UserAccount {
     UserAccount(){}
 
     UserAccount(UserAccountDTO userAccountData) {
-        this(null, userAccountData)
-    }
-
-    UserAccount(idIn, UserAccountDTO userAccountData) {
-        id = idIn
+        id = userAccountData.id
         fname = userAccountData.fname
         lname = userAccountData.lname
         email = userAccountData.email

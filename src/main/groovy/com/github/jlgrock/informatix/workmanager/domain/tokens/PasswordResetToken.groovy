@@ -1,5 +1,7 @@
-package com.github.jlgrock.informatix.workmanager.domain
+package com.github.jlgrock.informatix.workmanager.domain.tokens
 
+import com.github.jlgrock.informatix.workmanager.domain.AbstractExpiry
+import com.github.jlgrock.informatix.workmanager.domain.useraccount.UserAccount
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.hibernate.validator.constraints.NotEmpty
@@ -11,25 +13,23 @@ import javax.validation.constraints.NotNull
  *
  */
 @Entity
-@Table(name = "verification_tokens")
+@Table(name = "password_reset_tokens")
 @ToString
 @EqualsAndHashCode
-class VerificationToken extends AbstractExpiry {
-
+class PasswordResetToken extends AbstractExpiry {
     @Id
     @GeneratedValue
     @NotNull
-    private int id
+    int id
 
     @NotEmpty
-    private String token = generateToken()
+    String token = generateToken()
 
     @OneToOne(targetEntity = UserAccount.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_account_id")
-    private UserAccount userAccount
+    UserAccount userAccount
 
-    public VerificationToken(UserAccount userAccountIn) {
+    PasswordResetToken(UserAccount userAccountIn) {
         userAccount = userAccountIn
     }
-
 }

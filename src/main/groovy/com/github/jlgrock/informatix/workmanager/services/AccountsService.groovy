@@ -1,4 +1,4 @@
-package com.github.jlgrock.informatix.workmanager.services.accounts
+package com.github.jlgrock.informatix.workmanager.services
 import com.github.jlgrock.informatix.workmanager.domain.*
 import com.github.jlgrock.informatix.workmanager.exceptions.UserException
 import org.slf4j.Logger
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service
  *
  */
 @Service
-class RdbmsAccountsService implements AccountsService {
+class AccountsService implements AccountsService {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(RdbmsAccountsService.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(AccountsService.class);
 
     @Autowired
     UserAccountRepository userAccountRepository
@@ -54,7 +54,8 @@ class RdbmsAccountsService implements AccountsService {
             LOGGER.error(s)
             throw new UserException(s)
         }
-        UserAccount userAccount = new UserAccount(id, userAccountDTO)
+        userAccountDTO.id = id
+        UserAccount userAccount = new UserAccount(userAccountDTO)
         userAccountRepository.save(userAccount)
     }
 

@@ -1,4 +1,4 @@
-package com.github.jlgrock.informatix.workmanager.domain
+package com.github.jlgrock.informatix.workmanager.domain.useraccount
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import org.hibernate.validator.constraints.Email
@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull
 @EqualsAndHashCode
 class UserAccountDTO {
 
+    Integer id
+
     @NotEmpty
     String fname
 
@@ -25,4 +27,14 @@ class UserAccountDTO {
 
     @NotNull
     UserRole role
+
+    UserAccountDTO() {}
+
+    UserAccountDTO(UserAccount userAccount) {
+        id = userAccount.id
+        fname = userAccount.fname
+        lname = userAccount.lname
+        email = userAccount.email
+        role = userAccount.role
+    }
 }

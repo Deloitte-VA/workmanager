@@ -1,10 +1,8 @@
 <div name="login">
-    <div class="alert alert-danger" role="alert" ng-show="errors">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        {{ errorMessage }}
-    </div>
-    <form role="form" ng-show="!forgotPasswordForm" ng-submit="login()">
+
+    <!--<alertbar></alertbar>-->
+
+    <form role="form" ng-show="!forgotPassword" ng-submit="login()">
         <h2 class="form-signin-heading">Please sign in</h2>
         <div class="form-group">
             <label for="login-email">Email:</label>
@@ -20,16 +18,16 @@
             </label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" ng-click="toggleForgotPasswordForm()" class="btn btn-info">Forgot Password?</button>
+        <button type="button" ng-click="toggleForgotPassword()" class="btn btn-info">Forgot Password?</button>
     </form>
 
-    <form role="form" ng-show="forgotPasswordForm" ng-submit="forgotPassword()">
+    <form role="form" ng-show="forgotPassword" ng-submit="resetPassword()">
         <h2 class="form-signin-heading">What is the email associated with this account?</h2>
         <div class="form-group">
             <!--<label for="forgot-email">What is the email associated with this account?</label>-->
             <input type="text" class="form-control" id="forgot-email" name="forgot-email" placeholder="john.smith@gmail.com" ng-model="credentials.forgottenEmail"/>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" ng-click="cancelAll()" class="btn btn-danger">Cancel</button>
+        <button type="button" ng-click="toggleForgotPassword()" class="btn btn-danger">Cancel</button>
     </form>
 </div>

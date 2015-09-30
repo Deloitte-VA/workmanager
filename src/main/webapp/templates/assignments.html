@@ -1,0 +1,66 @@
+<div ng-show="authenticated">
+    <p>The ID is {{greeting.id}}</p>
+
+    <!-- The core content of the site-->
+    <h2>Your current work!</h2>
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="">Assignments</a></li>
+        <li role="presentation"><a href="">Upload Batch</a></li>
+    </ul>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Batch</div>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Upload Date</th>
+                <th>File Name</th>
+                <th>Download Assignment</th>
+            </tr>
+            <td>
+                <td>09-14-2015</td>
+                <td>File: abc.xlsx</td>
+                <td><a href="">link</a></td>
+            </tr>
+            <tr>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Assignment</th>
+                        <th>Completed Date</th>
+                        <th>Records in Assigment</th>
+                        <th>Download Assignment</th>
+                        <th>Completed Assignment</th>
+                        <th>Upload Completed Assignment</th>
+                    </tr>
+                    <tr>
+                        <td>Auto Validated</td>
+                        <td>09-14-2015 5:43PM</td>
+                        <td>432</td>
+                        <td><a href=""></a></td>
+                        <td><a href="">link</a></td>
+                        <td><a href=""></a></td>
+                    </tr>
+                    <tr>
+                        <td>Janet</td>
+                        <td>09-14-2015 8:12PM</td>
+                        <td>200</td>
+                        <td><a href="">link</a></td>
+                        <td><a href="">link</a></td>
+                        <td><a href="">link</a></td>
+                    </tr>
+                    <tr>
+                        <td>Nick</td>
+                        <td>Not Yet Completed</td>
+                        <td>198</td>
+                        <td><a href="">link</a></td>
+                        <td><a href=""></a></td>
+                        <td><a href="">link</a></td>
+                    </tr>
+                </table>
+            </tr>
+        </table>
+    </div>
+</div>
+<div  ng-show="!authenticated">
+    <login></login>
+</div>

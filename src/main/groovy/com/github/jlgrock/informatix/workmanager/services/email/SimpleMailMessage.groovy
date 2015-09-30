@@ -1,4 +1,4 @@
-package com.github.jlgrock.informatix.workmanager.domain
+package com.github.jlgrock.informatix.workmanager.services.email
 
 /**
  *
